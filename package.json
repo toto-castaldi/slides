@@ -1,0 +1,24 @@
+{
+  "name": "slides",
+  "version": "1.0.0",
+  "description": "",
+  "main": "presentation.js",
+  "scripts": {
+    "devserver": "DEVELOP=true ./node_modules/nodemon/bin/nodemon.js presentation.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start" : "node presentation.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/toto-castaldi/slides.git"
+  },
+  "author": "Antonio Toto Castaldi",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.16.4",
+    "marked": "^0.6.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.9"
+  }
+}

@@ -1,0 +1,13 @@
+html {
+    overflow: visible;
+}
+
+#slide-container {
+    flex-grow: 1;
+    background-color: white;
+}
+
+#slide-content {
+    width: 100%;
+    height: calc(100vh - 3.25em - 3em);
+}

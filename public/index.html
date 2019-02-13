@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title></title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.min.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+</head>
+
+<body>
+    <section class="hero is-fullheight">
+        <div class="hero-head">
+            <nav class="navbar has-background-grey-light" role="navigation" aria-label="main navigation">
+                <div class="navbar-brand">
+                    <a class="navbar-item" href="/">
+                        <img src="/images/logo.png">
+                    </a>
+
+
+                </div>
+
+                <div class="navbar-menu">
+                    <div class="navbar-end">
+                        <div class="navbar-item">
+                            <div class="buttons">
+                                <a class="button" id="previous-button">
+                                    Previous
+                                </a>
+                                <a class="button" id="next-button">
+                                    Next
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </div>
+        <iframe id="slide-content" src="">
+        </iframe>
+
+        <div class="hero-foot has-background-grey-light">
+            <div class="content has-text-centered" id="footer">
+
+            </div>
+
+        </div>
+    </section>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script>
+        let curentSlideIndex = 0;
+        let maxSlideIndex = 0;
+
+        const contentInfo = () => {
+            return fetch(`/index.json`)
+                .then((response) => {
+                    response.json().then((jsonResponse) => {
+                        $('#footer').html(jsonResponse.htmlFooter);
+                        $('title').html(jsonResponse.title);
+                    });
+                });
+        };
+
+        const slidesInfo = () => {
+            return fetch(`slidesInfo.json`)
+                .then((response) => {
+                    if (response.ok) {
+                        response.json().then((jsonResponse) => {
+                            maxSlideIndex = jsonResponse.max;
+                        });
+                    }
+                });
+        };
+
+        $("#previous-button").on("click", (event) => {
+            if (curentSlideIndex > 0) {
+                curentSlideIndex--;
+                reloadSlide();
+            }
+        });
+
+        $("#next-button").on("click", (event) => {
+            if (curentSlideIndex < maxSlideIndex - 1) {
+                curentSlideIndex++;
+                reloadSlide();
+            }
+        });
+
+        const reloadSlide = () => {
+            $("#slide-content").attr('src', "/content/" + curentSlideIndex);
+        };
+
+        contentInfo().then(slidesInfo()).then(reloadSlide);
+    </script>
+
+</body>
+
+</html>
